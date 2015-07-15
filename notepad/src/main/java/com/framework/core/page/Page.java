@@ -2,7 +2,12 @@ package com.framework.core.page;
 
 import java.util.List;
 
-
+/**
+ * 分页
+ * @author zhoudong
+ *
+ * @param <T>
+ */
 @SuppressWarnings("serial")
 public class Page<T> extends SimplePage implements java.io.Serializable,
 		Paginable {

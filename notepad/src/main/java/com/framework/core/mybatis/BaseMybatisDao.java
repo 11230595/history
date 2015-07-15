@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.framework.core.page.MysqlDialect;
@@ -20,7 +23,10 @@ import com.framework.core.page.Page;
 public class BaseMybatisDao extends SqlSessionDaoSupport  {
 
 	protected final Log logger = LogFactory.getLog(BaseMybatisDao.class);
-
+	 @Resource
+     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory){
+        super.setSqlSessionFactory(sqlSessionFactory);
+     }
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Page<?> findByPageBySqlId(String sqlId,
 			Map<String, Object> params, Integer pageNo, Integer pageSize) {

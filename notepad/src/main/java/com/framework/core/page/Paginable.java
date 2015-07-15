@@ -1,22 +1,9 @@
 package com.framework.core.page;
 
 /**
- * 
- * 开发公司：九樱天下<br/>
- * 版权：九樱天下<br/>
- * <p>
- * 
- * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2014年5月8日 　<br/>
- * <p>
  * 分页实体
- * <p>
- * @author zhou-baicheng
- * 
- * @version 1.0,2014年5月8日 <br/>
- * 
+ * @author zhoudong
+ *
  */
 public interface Paginable {
 

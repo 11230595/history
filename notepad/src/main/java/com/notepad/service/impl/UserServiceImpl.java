@@ -1,15 +1,19 @@
 package com.notepad.service.impl;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.framework.core.mybatis.BaseMybatisDao;
+import com.framework.core.page.Page;
 import com.notepad.entity.User;
 import com.notepad.mapper.UserMapper;
 import com.notepad.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseMybatisDao implements UserService{
 	@Resource
 	private UserMapper userMapper;
 	
@@ -55,6 +59,13 @@ public class UserServiceImpl implements UserService {
 	 */
 	public User login(String userCode, String password) {
 		return userMapper.login(userCode,password);
+	}
+	/**
+	 * 分页
+	 */
+	public Page<User> findUserByPage(String sqlId, Map<String, Object> param,
+			int pageNo, int PageSize) {
+		return (Page<User>) findByPageBySqlId(sqlId,param,pageNo,PageSize);
 	}
 
 }

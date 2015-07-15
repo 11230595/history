@@ -1,5 +1,8 @@
 package com.notepad.service;
 
+import java.util.Map;
+
+import com.framework.core.page.Page;
 import com.notepad.entity.User;
 
 public interface UserService {
@@ -20,4 +23,7 @@ public interface UserService {
 	User findUserByEmail(String email);
 
 	User login(String userCode, String password);
+
+	Page<User> findUserByPage(String string, Map<String, Object> param, int i,
+			int j);
 }

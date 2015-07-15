@@ -167,4 +167,19 @@
       edit_time = #{editTime,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=CHAR}
   </update>
+  
+  
+  <!-- 分页查询所有属性 -->
+	<select id="findUserByPage" resultMap="BaseResultMap">
+	select 
+    <include refid="Base_Column_List" />
+    from user
+    where 1=1
+    
+      order by create_time desc
+      <!-- 分页 -->
+      <if test="page_sql != null and page_sql !=''"  >
+       ${page_sql}
+      </if>
+	</select>
 </mapper>

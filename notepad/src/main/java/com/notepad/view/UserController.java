@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.framework.core.page.Page;
 import com.notepad.constants.Constants;
 import com.notepad.entity.User;
 import com.notepad.service.UserService;
@@ -214,6 +215,19 @@ public class UserController {
 		map.put("respCode", 0);
 		map.put("baseUrl", Constants.config.getString("BASE_URL"));
 		
+		return map; 
+	}
+	
+	/**
+	 * 分页获取用户，测试
+	 * @return
+	 */
+	@RequestMapping(value="/findUserByPage",method={RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody Map<String, Object> findUserByPage(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		Page<User> page = userService.findUserByPage("findUserByPage",param,1,10);
+		map.put("page", page);
 		return map; 
 	}
 }
