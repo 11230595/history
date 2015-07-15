@@ -79,7 +79,6 @@
                   <td>qq11230595</td>
                   <td></td>
                   <td>搜索网站</td>
-                  <td>无</td>
                   <td><a href="javascript:void(0);">删除</a></td>
                 </tr>
                 <tr>
@@ -88,7 +87,6 @@
                   <td>qq11230595</td>
                   <td></td>
                   <td>开口示爱</td>
-                  <td>无</td>
                   <td><a href="javascript:void(0);">删除</a></td>
                 </tr>
                 <tr>
@@ -97,7 +95,6 @@
                   <td>qq11230595</td>
                   <td></td>
                   <td>打折购物</td>
-                  <td>无</td>
                   <td><a href="javascript:void(0);">删除</a></td>
                 </tr>
                 <tr>
@@ -106,7 +103,6 @@
                   <td>qq11230595</td>
                   <td></td>
                   <td>购物</td>
-                  <td>无</td>
                   <td><a href="javascript:void(0);">删除</a></td>
                 </tr>
               </tbody>
