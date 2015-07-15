@@ -24,6 +24,6 @@ public interface UserService {
 
 	User login(String userCode, String password);
 
-	Page<User> findUserByPage(String string, Map<String, Object> param, int i,
-			int j);
+	Page<User> findUserByPage(String sqlId, Map<String, Object> param, int pageNo,
+			int pageSize);
 }

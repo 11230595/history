@@ -226,7 +226,9 @@ public class UserController {
 	public @ResponseBody Map<String, Object> findUserByPage(HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Object> param = new HashMap<String, Object>();
-		Page<User> page = userService.findUserByPage("findUserByPage",param,1,10);
+		int pageNo = 1;
+		int pageSize = 10;
+		Page<User> page = userService.findUserByPage("findUserByPage",param,pageNo,pageSize);
 		map.put("page", page);
 		return map; 
 	}
