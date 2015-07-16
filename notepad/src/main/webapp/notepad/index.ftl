@@ -116,7 +116,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="${request.contextPath}/webapp/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="${request.contextPath}/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="${request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="${request.contextPath}/bootstrap/js/holder.js"></script>
