@@ -17,7 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yiyong.baseproject.entity.Test;
 import com.yiyong.baseproject.service.TestService;
 import com.yiyong.framework.core.orm.Page;
-
+/**
+ * 
+ * @author zhoudong
+ *
+ */
 @Controller
 public class TestController {
 	@Resource
