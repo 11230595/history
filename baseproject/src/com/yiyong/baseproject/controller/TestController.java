@@ -63,7 +63,7 @@ public class TestController {
 	 * http://localhost:9080/baseproject/get/11
 	 * @return
 	 */
-	@RequestMapping(value = "/get/{code}", method = {RequestMethod.POST,RequestMethod.GET},produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/get/{id}", method = {RequestMethod.POST,RequestMethod.GET},produces = "application/json;charset=UTF-8")
 	public @ResponseBody Map<String, Object> get(@PathVariable String code) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Test test = testService.findByCode(code);
