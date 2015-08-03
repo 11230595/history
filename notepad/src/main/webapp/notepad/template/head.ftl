@@ -12,7 +12,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">登录</a></li>
+        <li><a href="user/login">登录</a></li>
         <li><a href="http://www.dovip.top/">开口示爱</a></li>
         <li><a href="http://dazhe.dovip.top/">九块九包邮</a></li>
         <li><a href="${request.contextPath}/about">关于</a></li>

@@ -32,10 +32,12 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="javascript:void(0);" onclick="myUrl();">已收藏网址 <span class="sr-only">(current)</span></a></li>
-            <li><a href="javascript:void(0);" onclick="goAdd();">新加网址</a></li>	
+            <li class="active"><a href="javascript:void(0);" onclick="myUrl(this);">已收藏网址 <span class="sr-only">(current)</span></a></li>
+            <li><a href="javascript:void(0);" onclick="goAdd(this);">新加网址</a></li>	
             <li><a href="javascript:void(0);">发现</a></li>
             <li><a href="javascript:void(0);">随心看</a></li>
+            <li><a href="javascript:void(0);">记事本</a></li>
+            <li><a href="javascript:void(0);">简历托管</a></li>
           </ul>
         </div>
         <!-- 主内容区start -->
