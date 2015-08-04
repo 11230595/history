@@ -7,7 +7,7 @@
       <div class="form-group">
 	    <label class="col-sm-2 control-label">选择收藏夹：</label>
 	    <div class="col-sm-10">
-		      <select class="form-control">
+		      <select class="form-control" id="favroiteId">
 		      	<option>默认收藏夹</option>
 		      </select>
 	    </div>

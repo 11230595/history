@@ -14,6 +14,32 @@ function goAdd(obj){
 	$("#main").empty();
 	$("#showUrl").remove();
 	var template = $("#addUrl").clone();
+	
+	//已有收藏夹
+	$.post("favorite/list/" + $("#userId").val(),function(data){
+		template.find("#favroiteId").empty();
+		
+		//如果没有收藏夹，初始化一个
+		if(data.result.length == 0){
+			$.post("favorite/save",{
+				"name":"默认收藏夹",
+				"favoriteDesc":"系统自动初始化收藏夹"
+			},function(data){
+				if(data.respCode == 0){
+					var html = '<option value="'+result.id+'">'+ result.name +'</option>';
+					template.find("#favroiteId").append(html);
+				}else{
+					alert("网络异常，请稍后重试");
+				}
+			});
+		}else{//存在收藏夹
+			$.each(data.result,function(i,result){
+				var html = '<option value="'+result.id+'">'+ result.name +'</option>';
+				template.find("#favroiteId").append(html);
+			});
+		}
+	});
+	
 	template.attr("id","showUrl");
 	$("#main").append(template.show());
 }
