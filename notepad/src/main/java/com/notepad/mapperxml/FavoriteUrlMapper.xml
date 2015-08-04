@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.notepad.mapper.FavoriteUrlMapper" >
+  <resultMap id="BaseResultMap" type="com.notepad.entity.FavoriteUrl" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="FAVORITE_ID" property="favoriteId" jdbcType="VARCHAR" />
+    <result column="URL_CODE" property="urlCode" jdbcType="VARCHAR" />
+    <result column="URL_PASSWORD" property="urlPassword" jdbcType="VARCHAR" />
+    <result column="FAVORITE_DESC" property="favoriteDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, URL, NAME, FAVORITE_ID, URL_CODE, URL_PASSWORD, FAVORITE_DESC, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from favorite_url
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from favorite_url
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.notepad.entity.FavoriteUrl" >
+    insert into favorite_url (ID, URL, NAME, 
+      FAVORITE_ID, URL_CODE, URL_PASSWORD, 
+      FAVORITE_DESC, CREATE_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{favoriteId,jdbcType=VARCHAR}, #{urlCode,jdbcType=VARCHAR}, #{urlPassword,jdbcType=VARCHAR}, 
+      #{favoriteDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.notepad.entity.FavoriteUrl" >
+    insert into favorite_url
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="favoriteId != null" >
+        FAVORITE_ID,
+      </if>
+      <if test="urlCode != null" >
+        URL_CODE,
+      </if>
+      <if test="urlPassword != null" >
+        URL_PASSWORD,
+      </if>
+      <if test="favoriteDesc != null" >
+        FAVORITE_DESC,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteId != null" >
+        #{favoriteId,jdbcType=VARCHAR},
+      </if>
+      <if test="urlCode != null" >
+        #{urlCode,jdbcType=VARCHAR},
+      </if>
+      <if test="urlPassword != null" >
+        #{urlPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteDesc != null" >
+        #{favoriteDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.notepad.entity.FavoriteUrl" >
+    update favorite_url
+    <set >
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteId != null" >
+        FAVORITE_ID = #{favoriteId,jdbcType=VARCHAR},
+      </if>
+      <if test="urlCode != null" >
+        URL_CODE = #{urlCode,jdbcType=VARCHAR},
+      </if>
+      <if test="urlPassword != null" >
+        URL_PASSWORD = #{urlPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="favoriteDesc != null" >
+        FAVORITE_DESC = #{favoriteDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.notepad.entity.FavoriteUrl" >
+    update favorite_url
+    set URL = #{url,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      FAVORITE_ID = #{favoriteId,jdbcType=VARCHAR},
+      URL_CODE = #{urlCode,jdbcType=VARCHAR},
+      URL_PASSWORD = #{urlPassword,jdbcType=VARCHAR},
+      FAVORITE_DESC = #{favoriteDesc,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

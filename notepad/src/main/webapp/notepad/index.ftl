@@ -19,21 +19,28 @@
     <script src="${request.contextPath}/js/jquery/jquery-1.11.1.min.js"></script>
     <script src="${request.contextPath}/bootstrap/js/ie-emulation-modes-warning.js"></script>
     <script src="${request.contextPath}/notepad/js/index.js"></script>
+    <script src="${request.contextPath}/notepad/js/favorite.js"></script>
 
   </head>
 
   <body>
+  	<#if user??>
+	  	<input type="hidden" value="${user.userId!''}" id="userId">
+  	</#if>
+  
 	<#include "template/head.ftl"><!-- 头信息 -->
 	<#include "template/foot.ftl"><!-- 脚信息 -->
 	<#include "template/myUrl.ftl"><!-- 已收藏 -->
 	<#include "template/addUrl.ftl"><!-- 新加 -->
+	<#include "template/favoriteHome.ftl"><!-- 管理收藏夹 -->
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="javascript:void(0);" onclick="myUrl(this);">已收藏网址 <span class="sr-only">(current)</span></a></li>
-            <li><a href="javascript:void(0);" onclick="goAdd(this);">新加网址</a></li>	
+            <li><a href="javascript:void(0);" onclick="goAdd(this);">新加网址</a></li>
+            <li><a href="javascript:void(0);" onclick="favoriteHome(this)">收藏夹管理</a></li>	
             <li><a href="javascript:void(0);">发现</a></li>
             <li><a href="javascript:void(0);">随心看</a></li>
             <li><a href="javascript:void(0);">记事本</a></li>

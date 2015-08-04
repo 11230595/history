@@ -19,7 +19,7 @@ public class UserServiceImpl extends BaseMybatisDao implements UserService{
 	
 
 	public int deleteByPrimaryKey(String userId) {
-		return 0;
+		return userMapper.deleteByPrimaryKey(userId);
 	}
 
 	public int insert(User record) {
@@ -27,11 +27,11 @@ public class UserServiceImpl extends BaseMybatisDao implements UserService{
 	}
 
 	public int insertSelective(User record) {
-		return 0;
+		return userMapper.insertSelective(record);
 	}
 
 	public User selectByPrimaryKey(String userId) {
-		return null;
+		return userMapper.selectByPrimaryKey(userId);
 	}
 
 	public int updateByPrimaryKeySelective(User record) {
@@ -39,7 +39,7 @@ public class UserServiceImpl extends BaseMybatisDao implements UserService{
 	}
 
 	public int updateByPrimaryKey(User record) {
-		return 0;
+		return userMapper.updateByPrimaryKey(record);
 	}
 	
 	/**
@@ -55,6 +55,12 @@ public class UserServiceImpl extends BaseMybatisDao implements UserService{
 		return userMapper.findUserByEmail(email);
 	}
 	/**
+	 * 根据ID查询用户
+	 */
+	public User findUserByUserId(String userId) {
+		return userMapper.selectByPrimaryKey(userId);
+	}
+	/**
 	 * 登陆
 	 */
 	public User login(String userCode, String password) {
@@ -67,5 +73,5 @@ public class UserServiceImpl extends BaseMybatisDao implements UserService{
 			int pageNo, int PageSize) {
 		return (Page<User>) findByPageBySqlId(sqlId,param,pageNo,PageSize);
 	}
-
+	
 }

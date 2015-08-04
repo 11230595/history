@@ -1,10 +1,18 @@
-<!-- 已收藏的网址 -->
-
+<!-- 新加网址 -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="addUrl" style="display:none;">
   <h2 class="sub-header">添加网址：</h2>
   <div class="table-responsive">
   	<!-- table start -->
     <form class="form-horizontal" role="form" style="width:80%;">
+      <div class="form-group">
+	    <label class="col-sm-2 control-label">选择收藏夹：</label>
+	    <div class="col-sm-10">
+		      <select class="form-control">
+		      	<option>默认收藏夹</option>
+		      </select>
+	    </div>
+	  </div>
+    
 	  <div class="form-group">
 	    <label class="col-sm-2 control-label">网址：</label>
 	    <div class="col-sm-10">
