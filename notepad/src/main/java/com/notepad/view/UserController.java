@@ -1,5 +1,7 @@
 package com.notepad.view;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -150,21 +152,27 @@ public class UserController {
 	 */
 	@RequestMapping(value="/otherSignin",method={RequestMethod.GET,RequestMethod.POST})
 	public String otherSignin(HttpServletRequest request,
-			@RequestParam String userCode) {
+			@RequestParam String userCode,@RequestParam String openId,@RequestParam String accessToken) {
 		
-		User user = new User();
-		user.setUserCode(userCode);
+		User user = userService.findUserByUserId(openId);
 		
-		String userId = "";
-		Cookie[] cookies = request.getCookies();
-		for(Cookie cookie : cookies){
+		if(user == null){  //如果首次使用第三方登录本站，关联数据
 			
-			if(cookie.getName().equals("pgv_pvid")){
-				userId = cookie.getValue();
+			try {
+				userCode = URLDecoder.decode(userCode, "utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
 			}
+			
+			user = new User();
+			user.setUserCode(userCode);
+			user.setUserId(openId);
+			user.setUsername(userCode);
+			user.setEmail(accessToken);
+			user.setCreateTime(new Date());
+			user.setDelFlag(0);
+			userService.insert(user);
 		}
-		user.setUserId(userId);
-		
 		request.getSession().setAttribute("user", user);
 		
 		return "redirect:/";
