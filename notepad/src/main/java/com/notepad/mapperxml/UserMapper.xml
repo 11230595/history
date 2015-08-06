@@ -9,7 +9,7 @@
     <result column="user_desc" property="userDesc" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -61,7 +61,7 @@
       )
     values (#{userId,jdbcType=CHAR}, #{userCode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{userDesc,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{delFlag,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, #{editTime,jdbcType=VARCHAR}
+      #{delFlag,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.notepad.entity.User" >
@@ -118,7 +118,7 @@
         #{delFlag,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=DATE},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="editTime != null" >
         #{editTime,jdbcType=VARCHAR},
@@ -147,7 +147,7 @@
         del_flag = #{delFlag,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=DATE},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="editTime != null" >
         edit_time = #{editTime,jdbcType=VARCHAR},
@@ -163,7 +163,7 @@
       user_desc = #{userDesc,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       del_flag = #{delFlag,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       edit_time = #{editTime,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=CHAR}
   </update>

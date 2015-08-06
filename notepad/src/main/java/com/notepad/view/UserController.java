@@ -102,7 +102,6 @@ public class UserController {
 		
 		User user = new User();
 		user.setUserId(UUID.randomUUID().toString());
-		user.setCreateTime(new Date());
 		user.setDelFlag(0);
 		user.setEmail(request.getParameter("email"));
 		user.setUserCode(request.getParameter("userCode"));
