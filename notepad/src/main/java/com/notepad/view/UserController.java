@@ -4,18 +4,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.framework.core.page.Page;
+import com.framework.core.utils.IPUtils;
 import com.notepad.constants.Constants;
+import com.notepad.entity.LoginLog;
 import com.notepad.entity.User;
+import com.notepad.service.LoginLogService;
 import com.notepad.service.UserService;
 
 /**
@@ -39,6 +39,8 @@ public class UserController {
 	private static Logger logger = Logger.getLogger(UserController.class);
 	@Resource
 	private UserService userService;
+	@Resource
+	private LoginLogService loginLogService;
 	
 	/**
 	 * 跳转到注册页面
@@ -126,6 +128,7 @@ public class UserController {
 	public @ResponseBody Map<String, Object> signin(HttpServletRequest request,
 			@RequestParam String userCode, @RequestParam String password,@RequestParam(required=false) String returnUrl) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		String ip = IPUtils.getIP(request);
 		
 		User user = userService.login(userCode,password);
 		
@@ -138,8 +141,14 @@ public class UserController {
 				map.put("returnUrl", Constants.config.getString("BASE_URL"));
 			
 			request.getSession().setAttribute("user", user);
+			
+			//日志
+			loginLogService.insert(new LoginLog(LoginLog.APP_NAME, 0, userCode, "", ip, IPUtils.getAddress(ip)));
 		}else {
 			map.put("respCode", 1);	//登陆失败
+			
+			//日志
+			loginLogService.insert(new LoginLog(LoginLog.APP_NAME, 0, userCode, "该用户不存在！", ip, IPUtils.getAddress(ip)));
 		}
 		
 		return map;
@@ -174,6 +183,10 @@ public class UserController {
 			userService.insert(user);
 		}
 		request.getSession().setAttribute("user", user);
+		
+		//日志
+		String ip = IPUtils.getIP(request);
+		loginLogService.insert(new LoginLog(LoginLog.APP_NAME, 1, userCode, "", ip, IPUtils.getAddress(ip)));
 		
 		return "redirect:/";
 	}

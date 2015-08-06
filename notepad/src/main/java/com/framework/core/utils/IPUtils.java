@@ -48,7 +48,7 @@ public class IPUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Map<String,String> getAddress(String ip) {
+	public static Map<String,String> getAddressMap(String ip) {
 		if(StringUtils.isBlank(ip)){
 			return new HashMap<String, String>();
 		}
@@ -63,37 +63,41 @@ public class IPUtils {
 			json = JSONObject.fromObject(returnStr);
 			
 			if("0".equals(json.get("code").toString())){
-				
 				Map<String,String> map = new HashMap<String, String>();
-//				StringBuffer buffer = new StringBuffer();
-				
 				map.put("country", decodeUnicode(json.optJSONObject("data").getString("country")));//国家
 				map.put("area", decodeUnicode(json.optJSONObject("data").getString("area")));//地区
 				map.put("province", decodeUnicode(json.optJSONObject("data").getString("region")));//省份
 				map.put("city", decodeUnicode(json.optJSONObject("data").getString("city")));//市区
 				map.put("county", decodeUnicode(json.optJSONObject("data").getString("county")));//地区
 				map.put("isp", decodeUnicode(json.optJSONObject("data").getString("isp")));//ISP公司
-				//buffer.append(decodeUnicode(json.optJSONObject("data").getString("country")));
-				
-				//buffer.append(decodeUnicode(json.optJSONObject("data").getString("area")));//地区
-//				buffer.append(decodeUnicode(json.optJSONObject("data").getString("region")));//省份
-//				buffer.append(decodeUnicode(json.optJSONObject("data").getString("city")));//市区
-//				buffer.append(decodeUnicode(json.optJSONObject("data").getString("county")));//地区
-//				buffer.append(decodeUnicode(json.optJSONObject("data").getString("isp")));//ISP公司
 				
 				return map;
 				
 			}else{
 				
 				return new HashMap<String, String>();
-				
 			}
-			
 		}
-		
 		return new HashMap<String, String>();
-		
 	}
+	
+	/**
+	 * 获取地址
+	 * @param params
+	 * @param encoding
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getAddress(String ip) {
+		Map<String, String> map = getAddressMap(ip);
+		
+		StringBuilder value = new StringBuilder();
+		for(Map.Entry<String, String> entry: map.entrySet()){
+			value.append(entry.getValue());
+		}
+		return value.toString();
+	}
+	
 	/**
 	 * 从url获取结果
 	 * @param path
