@@ -186,7 +186,7 @@ public class UserController {
 		
 		//日志
 		String ip = IPUtils.getIP(request);
-		loginLogService.insert(new LoginLog(LoginLog.APP_NAME, 1, userCode, "", ip, IPUtils.getAddress(ip)));
+		loginLogService.insert(new LoginLog(LoginLog.APP_NAME, 1, user.getUserCode(), "", ip, IPUtils.getAddress(ip)));
 		
 		return "redirect:/";
 	}

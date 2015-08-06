@@ -92,9 +92,14 @@ public class IPUtils {
 		Map<String, String> map = getAddressMap(ip);
 		
 		StringBuilder value = new StringBuilder();
-		for(Map.Entry<String, String> entry: map.entrySet()){
-			value.append(entry.getValue());
-		}
+		
+		value.append(map.get("country"));
+		value.append(map.get("area"));
+		value.append(map.get("province"));
+		value.append(map.get("city"));
+		value.append(map.get("county"));
+		value.append(map.get("isp"));
+		
 		return value.toString();
 	}
 	
