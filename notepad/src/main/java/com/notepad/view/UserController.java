@@ -2,13 +2,16 @@ package com.notepad.view;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -157,37 +160,68 @@ public class UserController {
 	/**
 	 * 其他登陆
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value="/otherSignin",method={RequestMethod.GET,RequestMethod.POST})
-	public String otherSignin(HttpServletRequest request,
-			@RequestParam String userCode,@RequestParam String openId,@RequestParam String accessToken) {
+	public String otherSignin(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam String userCode,@RequestParam String openId,@RequestParam String accessToken) throws UnsupportedEncodingException {
 		
 		User user = userService.findUserByUserId(openId);
+		String ip = IPUtils.getIP(request);
 		
 		if(user == null){  //如果首次使用第三方登录本站，关联数据
 			
-			try {
-				userCode = URLDecoder.decode(userCode, "utf-8");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+			userCode = URLDecoder.decode(userCode, "utf-8");
 			
-			user = new User();
-			user.setUserCode(userCode);
-			user.setUserId(openId);
-			user.setUsername(userCode);
-			user.setEmail(accessToken);
-			user.setCreateTime(new Date());
-			user.setDelFlag(0);
-			userService.insert(user);
+			user = userService.findUserByUserCode(userCode); //userCode是否存在
+			
+			if(user == null){
+				user = new User();
+				user.setUserCode(userCode);
+				user.setUserId(openId);
+				user.setUsername(userCode);
+				user.setEmail(accessToken);
+				user.setCreateTime(new Date());
+				user.setDelFlag(0);
+				userService.insert(user);
+			}else{
+				loginLogService.insert(new LoginLog(LoginLog.APP_NAME, 1, user.getUserCode(), userCode + "，已经有人使用，跳转到信息补充页面。", ip, IPUtils.getAddress(ip)));
+				return "redirect:/user/userInfoFill/" + URLEncoder.encode(userCode, "utf-8") + "/" + openId + "/" + accessToken;
+			}
 		}
-		request.getSession().setAttribute("user", user);
+		request.getSession().setAttribute("user", user); //session
+		addCookie(response,user.getUserId()); //cookie
 		
 		//日志
-		String ip = IPUtils.getIP(request);
 		loginLogService.insert(new LoginLog(LoginLog.APP_NAME, 1, user.getUserCode(), "", ip, IPUtils.getAddress(ip)));
 		
 		return "redirect:/";
+	}
+	/**
+	 * 设置cookie
+	 * @param response
+	 * @param userId
+	 */
+	private void addCookie(HttpServletResponse response,String userId){
+		Cookie cookie = new Cookie("dovip_user", userId);       //(key,value)  
+	    cookie.setPath("/");// 这个要设置  
+	    cookie.setDomain(".dovip.top");//这样设置，能实现两个网站共用  
+	    cookie.setMaxAge(365 * 24 * 60 * 60);// 不设置的话，则cookies不写入硬盘,而是写在内存,只在当前页面有用,以秒为单位  
+	    response.addCookie(cookie);         //添加第一个Cookie  
+	}
+	
+	/**
+	 * 用户名冲突跳转到重新填写用户名界面
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	@RequestMapping(value="/userInfoFill/{userCode}/{openId}/{accessToken}",method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView userInfoFill(@PathVariable String userCode,@PathVariable String openId,@PathVariable String accessToken) throws UnsupportedEncodingException {
+		ModelAndView mav = new ModelAndView("userInfoFill"); 
+		mav.addObject("userCode",URLDecoder.decode(userCode, "utf-8"));
+		mav.addObject("openId",openId);
+		mav.addObject("accessToken",accessToken);
+		return mav; 
 	}
 	
 	/**
@@ -228,9 +262,21 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value="/loginOut",method={RequestMethod.GET,RequestMethod.POST})
-	public @ResponseBody Map<String, Object> loginOut(HttpServletRequest request) {
+	public @ResponseBody Map<String, Object> loginOut(HttpServletRequest request,HttpServletResponse response) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		//删除cookie
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null){  
+		  //删除.dovip.top下面的cookie
+		  for (Cookie cookie : cookies){  
+		      cookie.setPath("/");//设置成跟写入cookies一样的  
+		      cookie.setDomain(".dovip.top");//设置成跟写入cookies一样的  
+		      cookie.setMaxAge(0);  
+		      response.addCookie(cookie);  
+		  }
+		}  
 		
+		//删除session
 		request.getSession().invalidate();
 		map.put("respCode", 0);
 		map.put("baseUrl", Constants.config.getString("BASE_URL"));
