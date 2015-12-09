@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<!-- ============================自动修改时间，达到重新排序的效果================================= -->
+	<bean id="changeTimeJob" class="com.hexun.baseproject.queue.AutoChangeTime"></bean>
+	
+	<bean id="changeTimeJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- Bean的名字 -->
+		<property name="targetObject">
+			<ref bean="changeTimeJob" />
+		</property>
+		<!-- Bean的执行方法 -->
+		<property name="targetMethod">
+			<value>autoChangeTime</value>
+		</property>
+	</bean>
+	<!-- 每天的8点~22点，2小时执行一次 -->
+	<bean id="changeTimeJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="changeTimeJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 8,10,12,14,16,18,20,22 * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- ============================自动修改时间，达到重新排序的效果，针对专区产品================================= -->
+	<bean id="changeTimeLinkJob" class="com.hexun.baseproject.queue.AutoChangeTime"></bean>
+	
+	<bean id="changeTimeLinkJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- Bean的名字 -->
+		<property name="targetObject">
+			<ref bean="changeTimeLinkJob" />
+		</property>
+		<!-- Bean的执行方法 -->
+		<property name="targetMethod">
+			<value>autoChangeTimeByLink</value>
+		</property>
+	</bean>
+	<!-- 每天的8,10,13,16,20,22点30 各执行一次-->
+	<bean id="changeTimeLinkJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="changeTimeLinkJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 30 8,10,13,16,20,22 * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 配置到spring 中     lazy-init不能设置为true，否则在容器启动时不能执行 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"   lazy-init="false" autowire="no" >
+		<property name="triggers">
+			<list>
+				<ref local="changeTimeJobTrigger" />
+				<ref local="changeTimeLinkJobTrigger" />
+			</list>
+		</property>
+		<property name="autoStartup" value="true"/>
+	</bean> 
+</beans>
