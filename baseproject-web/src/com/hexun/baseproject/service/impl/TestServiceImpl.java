@@ -1,5 +1,7 @@
 package com.hexun.baseproject.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,12 +9,12 @@ import org.springframework.stereotype.Service;
 import com.hexun.baseproject.entity.Test;
 import com.hexun.baseproject.mapper.TestMapper;
 import com.hexun.baseproject.service.TestService;
-
 @Service
 public class TestServiceImpl implements TestService{
 	@Resource
 	private TestMapper testMapper;
-
+	
+	
 	@Override
 	public int deleteByPrimaryKey(String id) {
 		return testMapper.deleteByPrimaryKey(id);
@@ -42,5 +44,16 @@ public class TestServiceImpl implements TestService{
 	public int updateByPrimaryKey(Test record) {
 		return testMapper.updateByPrimaryKey(record);
 	}
-	
+
+	@Override
+	public Test findByCode(String code) {
+		return testMapper.findByCode(code);
+	}
+
+	@Override
+	public List<Test> findByNameOrCode(String name, String code) {
+		return testMapper.findByNameOrCode(name,code);
+	}
+
+
 }

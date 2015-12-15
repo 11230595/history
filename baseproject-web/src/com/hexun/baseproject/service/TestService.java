@@ -1,5 +1,7 @@
 package com.hexun.baseproject.service;
 
+import java.util.List;
+
 import com.hexun.baseproject.entity.Test;
 
 public interface TestService {
@@ -14,4 +16,8 @@ public interface TestService {
     int updateByPrimaryKeySelective(Test record);
 
     int updateByPrimaryKey(Test record);
+
+	Test findByCode(String code);
+
+	List<Test> findByNameOrCode(String name, String code);
 }

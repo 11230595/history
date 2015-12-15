@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	success!baseproject-web!
-	<br>${url!''}</br>
+aaaaaaaaaaaaaaaaaaaaaa<br>
+${code}
 </body>
 </html>
