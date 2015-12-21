@@ -35,6 +35,7 @@ public class TestController {
 	
 	/**
 	 * add
+	 * http://localhost:8080/baseproject-web/add?code=05&name=hexun4
 	 * @return
 	 */
 	@RequestMapping(value="add",method={RequestMethod.GET,RequestMethod.POST})
@@ -89,6 +90,13 @@ public class TestController {
 	 */
 	@RequestMapping(value="page",method={RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView index(@RequestParam String code) {
-		return new ModelAndView("index","code",code);
+		ModelAndView mav = new ModelAndView("index");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", "和讯");
+		map.put("code", "hexun");
+		
+		mav.addObject("mapKey", map);
+		return mav;
 	}
 }

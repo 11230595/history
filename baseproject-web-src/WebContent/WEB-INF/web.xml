@@ -32,7 +32,6 @@
   <session-config>
     <session-timeout>120</session-timeout>
   </session-config>
-  <!-- springmvc start -->
   <servlet>
     <servlet-name>springmvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -50,8 +49,6 @@
     <servlet-name>springmvc</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  <!-- //springmvc end -->
-  
   <welcome-file-list>
     <welcome-file>index</welcome-file>
   </welcome-file-list>

@@ -20,6 +20,7 @@
      <context:property-placeholder location="classpath:/jdbc.properties"  />
 	 <!-- 自动扫描 -->  
     <context:component-scan base-package="com.hexun.baseproject" />
+    <context:component-scan base-package="com.hexun.jndi" />
 
 	<!-- 用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 -->
 	<bean id="springContextHolder" class="com.hexun.framework.core.spring.SpringContextHolder" lazy-init="false" />
