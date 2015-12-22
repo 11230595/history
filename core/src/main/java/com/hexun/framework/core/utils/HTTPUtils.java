@@ -20,7 +20,7 @@ import org.apache.commons.io.IOUtils;
 public class HTTPUtils {
 	/**
 	 * 发送get请求
-	 * 
+	 * @author zhoudong
 	 * @return
 	 */
 	public static String sendGet(String url) {
@@ -57,7 +57,7 @@ public class HTTPUtils {
 	
 	/**
      * 向指定 URL 发送POST方法的请求
-     * 
+     * @author zhoudong
      * @param url
      *            发送请求的 URL
      * @param param

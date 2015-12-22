@@ -62,6 +62,7 @@ public class IDUtils {
 
 	/**
 	 * 生成ID
+	 * @author zhoudong
 	 * @return
 	 */
 	public static String getId() {

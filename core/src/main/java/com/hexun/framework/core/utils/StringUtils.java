@@ -9,12 +9,6 @@ import java.util.TreeSet;
 
 import net.sf.json.JSONObject;
 import sun.misc.BASE64Decoder;
-
-
-
-
-
-
 /**
  * String工具
  * 主要对 StringUtils 的一些方法进行重写,达到更方便的使用
