@@ -1,5 +1,8 @@
 package com.hexun.personalcms.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,7 +10,11 @@ import org.springframework.stereotype.Service;
 import com.hexun.personalcms.entity.TsContent;
 import com.hexun.personalcms.mapper.TsContentMapper;
 import com.hexun.personalcms.service.TsContentService;
-
+/**
+ * 内容
+ * @author zhoudong
+ *
+ */
 @Service
 public class TsContentServiceImpl implements TsContentService{
 	@Resource
@@ -46,6 +53,14 @@ public class TsContentServiceImpl implements TsContentService{
 	@Override
 	public int updateByPrimaryKey(TsContent record) {
 		return tsContentMapper.updateByPrimaryKey(record);
+	}
+	/**
+     * 查询contentVO
+     * @return
+     */
+	@Override
+	public List<Map<String, Object>> findContentsVO() {
+		return tsContentMapper.findContentsVO();
 	}
 
 }

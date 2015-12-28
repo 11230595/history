@@ -12,10 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.hexun.personalcms.controller.TsContentController;
+
 /**
  * Servlet Filter implementation class LoginFilter
  */
 public class LoginFilter implements Filter {
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * Default constructor. 
@@ -38,10 +44,10 @@ public class LoginFilter implements Filter {
 		
 		HttpSession session = req.getSession();
 		if(session.getAttribute("user") == null){
+			logger.info("用户未登录");
 			session.setAttribute("user", "zhoudong");
-			System.out.println("---------------->用户未登录");
 		}else {
-			System.out.println("---------------->用户已登录");
+			logger.info("用户已登录，登录名：{}" , session.getAttribute("user"));
 		}
 		
 		chain.doFilter(request, response);

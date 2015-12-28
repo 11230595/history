@@ -4,14 +4,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	<title>个人内容管理系统</title>
-    <%@ include  file="template/head.jsp"%><!-- 公用的头信息 -->
+    <title>个人内容管理系统</title>
+   <%@ include  file="template/head.jsp"%><!-- 公用的头信息 -->
     <link href="<%=request.getContextPath()%>/bootstrap/css/dashboard.css" rel="stylesheet">
     
     <script>
     	$(function(){
-    		$("#index").parent().removeClass("active");
-    		$("#index").addClass("active");
+    		$("#recom").parent().removeClass("active");
+    		$("#recom").addClass("active");
     	})
     </script>
   </head>
@@ -25,7 +25,7 @@
 		
 		<!-- 内容start -->
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">全部内容</h2>
+          <h2 class="sub-header">推荐的内容</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -50,5 +50,10 @@
 		<!-- 内容end -->
       </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/vendor/holder.js"></script>
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

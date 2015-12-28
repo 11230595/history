@@ -17,7 +17,7 @@ import com.hexun.framework.core.properties.PropertiesUtils;
 @Controller
 @RequestMapping("user")
 public class TsUserController extends DefaultBaseController{
-	private Logger logger = LoggerFactory.getLogger(TsUserController.class);
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * 首页

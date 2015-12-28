@@ -6,11 +6,9 @@ import java.text.Format;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ID及随机数处理类
@@ -19,7 +17,7 @@ import org.apache.log4j.Logger;
  */
 public class IDUtils {
 	/** .log */
-    private static final Logger logger = Logger.getLogger(IDUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(IDUtils.class);
  
     /** The FieldPosition. */
     private static final FieldPosition HELPER_POSITION = new FieldPosition(0);

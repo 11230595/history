@@ -156,4 +156,12 @@
       RECOM = #{recom,jdbcType=INTEGER}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 查询内容VO -->
+  <select id="findContentsVO" resultType="map">
+    select 
+    c.*,r.ts_count count
+    from ts_content c
+    LEFT JOIN ts_read_count r ON c.ID = r.CONTENT_ID;
+  </select>
 </mapper>

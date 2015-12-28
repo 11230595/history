@@ -1,5 +1,8 @@
 package com.hexun.personalcms.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.hexun.personalcms.entity.TsContent;
 
 public interface TsContentMapper {
@@ -16,4 +19,9 @@ public interface TsContentMapper {
     int updateByPrimaryKeyWithBLOBs(TsContent record);
 
     int updateByPrimaryKey(TsContent record);
+    /**
+     * 查询contentVO
+     * @return
+     */
+	List<Map<String, Object>> findContentsVO();
 }

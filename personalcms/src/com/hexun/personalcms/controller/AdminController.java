@@ -16,7 +16,7 @@ import com.hexun.framework.core.properties.PropertiesUtils;
  */
 @Controller
 public class AdminController extends DefaultBaseController{
-	private Logger logger = LoggerFactory.getLogger(AdminController.class);
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * 首页
@@ -25,7 +25,7 @@ public class AdminController extends DefaultBaseController{
 	 */
 	@RequestMapping(value="index",method={RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView index() {
-		return new ModelAndView("index","url",PropertiesUtils.getString("BASE_URL"));
+		return redirect("content/index.do");
 	}
 	
 }
