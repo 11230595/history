@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.hexun.personalcms.controller.TsContentController;
+import com.hexun.framework.core.properties.PropertiesUtils;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -42,12 +43,18 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
+		if(!req.getRequestURL().toString().endsWith("pub.do")){
+			logger.info("访问URL{},不是pub.do,放行！",req.getRequestURL().toString());
+			chain.doFilter(request, response);
+			return;
+		}
+		
 		HttpSession session = req.getSession();
-		if(session.getAttribute("user") == null){
+		if(session.getAttribute("ts_user") == null){
 			logger.info("用户未登录");
-			session.setAttribute("user", "zhoudong");
+			resp.sendRedirect(PropertiesUtils.getString("BASE_URL") + "/user/login.do");
 		}else {
-			logger.info("用户已登录，登录名：{}" , session.getAttribute("user"));
+			logger.info("用户已登录，登录名：{}" , JSONObject.fromObject(session.getAttribute("ts_user")).toString());
 		}
 		
 		chain.doFilter(request, response);

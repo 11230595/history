@@ -162,6 +162,7 @@
     select 
     c.*,r.ts_count count
     from ts_content c
-    LEFT JOIN ts_read_count r ON c.ID = r.CONTENT_ID;
+    LEFT JOIN ts_read_count r ON c.ID = r.CONTENT_ID
+    order by c.create_time desc;
   </select>
 </mapper>

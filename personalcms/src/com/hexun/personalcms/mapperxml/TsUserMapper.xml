@@ -7,13 +7,15 @@
     <result column="USER_CODE" property="userCode" jdbcType="VARCHAR" />
     <result column="EMALL" property="emall" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
-    <result column="DESC" property="desc" jdbcType="VARCHAR" />
+    <result column="USER_DESC" property="userDesc" jdbcType="VARCHAR" />
     <result column="LEVEL" property="level" jdbcType="INTEGER" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
     <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, USER_NAME, USER_CODE, EMALL, PHONE, DESC, LEVEL, CREATE_TIME, EDIT_TIME
+    ID, USER_NAME, USER_CODE, EMALL, PHONE, USER_DESC, LEVEL, CREATE_TIME, EDIT_TIME, 
+    PASSWORD
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -27,13 +29,13 @@
   </delete>
   <insert id="insert" parameterType="com.hexun.personalcms.entity.TsUser" >
     insert into ts_user (ID, USER_NAME, USER_CODE, 
-      EMALL, PHONE, DESC, 
-      LEVEL, CREATE_TIME, EDIT_TIME
-      )
+      EMALL, PHONE, USER_DESC, 
+      LEVEL, CREATE_TIME, EDIT_TIME, 
+      PASSWORD)
     values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, 
-      #{emall,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
-      #{level,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=TIMESTAMP}
-      )
+      #{emall,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{userDesc,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=TIMESTAMP}, 
+      #{password,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hexun.personalcms.entity.TsUser" >
     insert into ts_user
@@ -53,8 +55,8 @@
       <if test="phone != null" >
         PHONE,
       </if>
-      <if test="desc != null" >
-        DESC,
+      <if test="userDesc != null" >
+        USER_DESC,
       </if>
       <if test="level != null" >
         LEVEL,
@@ -64,6 +66,9 @@
       </if>
       <if test="editTime != null" >
         EDIT_TIME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -82,8 +87,8 @@
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=VARCHAR},
+      <if test="userDesc != null" >
+        #{userDesc,jdbcType=VARCHAR},
       </if>
       <if test="level != null" >
         #{level,jdbcType=INTEGER},
@@ -93,6 +98,9 @@
       </if>
       <if test="editTime != null" >
         #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -111,8 +119,8 @@
       <if test="phone != null" >
         PHONE = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        DESC = #{desc,jdbcType=VARCHAR},
+      <if test="userDesc != null" >
+        USER_DESC = #{userDesc,jdbcType=VARCHAR},
       </if>
       <if test="level != null" >
         LEVEL = #{level,jdbcType=INTEGER},
@@ -123,6 +131,9 @@
       <if test="editTime != null" >
         EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
@@ -132,10 +143,24 @@
       USER_CODE = #{userCode,jdbcType=VARCHAR},
       EMALL = #{emall,jdbcType=VARCHAR},
       PHONE = #{phone,jdbcType=VARCHAR},
-      DESC = #{desc,jdbcType=VARCHAR},
+      USER_DESC = #{userDesc,jdbcType=VARCHAR},
       LEVEL = #{level,jdbcType=INTEGER},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP}
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      PASSWORD = #{password,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 登录 -->
+  <select id="login" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ts_user
+    where 1=1
+    <if test="userCode != null and password != null">
+    	and (user_Code = #{userCode,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR})
+    	or (phone = #{userCode,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR})
+    	or (EMALL = #{userCode,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR})
+    </if>
+  </select>
 </mapper>

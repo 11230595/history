@@ -50,8 +50,8 @@ public class TsReadCountServiceImpl implements TsReadCountService {
 	 * 根据内容ID查询
 	 */
 	@Override
-	public TsReadCount findTsReadCountByContentId() {
-		return tsReadCountMapper.findTsReadCountByContentId();
+	public TsReadCount findTsReadCountByContentId(String contentId) {
+		return tsReadCountMapper.findTsReadCountByContentId(contentId);
 	}
 
 

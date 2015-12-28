@@ -42,5 +42,13 @@ public class TsUserServiceImpl implements TsUserService{
 	public int updateByPrimaryKey(TsUser record) {
 		return tsUserMapper.updateByPrimaryKey(record);
 	}
+	
+	/**
+	 * 登录
+	 */
+	@Override
+	public TsUser login(String userCode, String password) {
+		return tsUserMapper.login(userCode,password);
+	}
 
 }

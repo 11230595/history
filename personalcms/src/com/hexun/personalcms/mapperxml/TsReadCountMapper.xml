@@ -98,6 +98,6 @@
     select 
     <include refid="Base_Column_List" />
     from ts_read_count
-    where CONTENT_ID = #{id,jdbcType=VARCHAR}
+    where CONTENT_ID = #{contentId,jdbcType=VARCHAR}
   </select>
 </mapper>

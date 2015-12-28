@@ -1,5 +1,7 @@
 package com.hexun.personalcms.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hexun.personalcms.entity.TsUser;
 
 public interface TsUserMapper {
@@ -14,4 +16,6 @@ public interface TsUserMapper {
     int updateByPrimaryKeySelective(TsUser record);
 
     int updateByPrimaryKey(TsUser record);
+
+	TsUser login(@Param("userCode") String userCode, @Param("password") String password);
 }

@@ -37,24 +37,33 @@
                 </tr>
               </thead>
               <tbody>
-              	<c:forEach var="content" items="${contents}">
-	                <tr>
-	                  <td><a href="<%=request.getContextPath()%>/content/detail.do?id=${content.ID}">${content.TITLE }</a></td>
-	                  <td><a href="<%=request.getContextPath()%>/content/detail.do?id=${content.ID}">${fn:substring(content.CONTENT, 0, 50)}</a></td>
-	                  <td style="color:#c6c6c6;">${content.CREATE_TIME }</td>
-	                  <td><code>阅读</code><span style="color:#c6c6c6;">(
-	                  	<c:choose>
-	                  		<c:when test="${empty content.count}">
-	                  		0
-	                  		</c:when>
-							<c:otherwise>
-								${content.count}
-							</c:otherwise>
-	                  	</c:choose>
-	                  	
-	                  )</span></td>
-	                </tr>
-                </c:forEach>
+	              <c:choose>
+	              	<c:when test="${empty contents}">
+	              		<tr>
+	              			<td>暂无数据....</td>
+	              		</tr>
+	              	</c:when>
+	              	<c:otherwise>
+		              	<c:forEach var="content" items="${contents}">
+			                <tr>
+			                  <td><a target="_blank" href="<%=request.getContextPath()%>/content/detail.do?id=${content.ID}">${content.TITLE }</a></td>
+			                  <td><a target="_blank" href="<%=request.getContextPath()%>/content/detail.do?id=${content.ID}">${fn:substring(content.CONTENT, 0, 50)}</a></td>
+			                  <td style="color:#c6c6c6;">${content.CREATE_TIME }</td>
+			                  <td><code>阅读</code><span style="color:#c6c6c6;">(
+			                  	<c:choose>
+			                  		<c:when test="${empty content.count}">
+			                  		0
+			                  		</c:when>
+									<c:otherwise>
+										${content.count}
+									</c:otherwise>
+			                  	</c:choose>
+			                  	
+			                  )</span></td>
+			                </tr>
+		                </c:forEach>
+		           </c:otherwise>
+	             </c:choose>
               </tbody>
             </table>
           </div>

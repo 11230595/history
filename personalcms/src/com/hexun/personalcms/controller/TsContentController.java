@@ -26,6 +26,7 @@ import com.hexun.personalcms.entity.TsReadCount;
 import com.hexun.personalcms.entity.TsUser;
 import com.hexun.personalcms.service.TsContentService;
 import com.hexun.personalcms.service.TsReadCountService;
+import com.hexun.personalcms.service.TsUserService;
 /**
  * 内容
  * @author zhoudong
@@ -98,18 +99,23 @@ public class TsContentController extends DefaultBaseController{
 	 * 保存阅读次数
 	 * @param id
 	 */
-	private synchronized void saveReadCount(String id) {
+	private synchronized void saveReadCount(String contentId) {
+		TsReadCount tsReadCount = tsReadCountService.findTsReadCountByContentId(contentId);
 		
-		TsReadCount tsReadCount = tsReadCountService.findTsReadCountByContentId();
-		
-		tsReadCount = new TsReadCount();
-		tsReadCount.setContentId(IDUtils.getId());
-		tsReadCount.setCreateTime(new Date());
-		
-		TsUser user = (TsUser) getSession().getAttribute("tsUser");
-		tsReadCount.setUserId(user == null ? "" : user.getId());
-		tsReadCount.setContentId(id);
-		
-		tsReadCountService.insert(tsReadCount);
+		if(tsReadCount != null){
+			tsReadCount.setTsCount(tsReadCount.getTsCount()+1);
+			tsReadCountService.updateByPrimaryKey(tsReadCount);
+		}else{
+			tsReadCount = new TsReadCount();
+			tsReadCount.setId(IDUtils.getId());
+			tsReadCount.setCreateTime(new Date());
+			
+			TsUser user = (TsUser) getSession().getAttribute("tsUser");
+			tsReadCount.setUserId(user == null ? "" : user.getId());
+			tsReadCount.setContentId(contentId);
+			tsReadCount.setTsCount(1);
+			
+			tsReadCountService.insert(tsReadCount);
+		}
 	}
 }

@@ -16,7 +16,8 @@ public interface TsReadCountService {
     int updateByPrimaryKey(TsReadCount record);
     /**
      * 根据内容ID查询
+     * @param contentId 
      * @return
      */
-	TsReadCount findTsReadCountByContentId();
+	TsReadCount findTsReadCountByContentId(String contentId);
 }

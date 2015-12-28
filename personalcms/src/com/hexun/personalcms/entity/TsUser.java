@@ -13,13 +13,15 @@ public class TsUser {
 
     private String phone;
 
-    private String desc;
+    private String userDesc;
 
     private Integer level;
 
     private Date createTime;
 
     private Date editTime;
+
+    private String password;
 
     public String getId() {
         return id;
@@ -61,12 +63,12 @@ public class TsUser {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getUserDesc() {
+        return userDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setUserDesc(String userDesc) {
+        this.userDesc = userDesc == null ? null : userDesc.trim();
     }
 
     public Integer getLevel() {
@@ -91,5 +93,13 @@ public class TsUser {
 
     public void setEditTime(Date editTime) {
         this.editTime = editTime;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 }

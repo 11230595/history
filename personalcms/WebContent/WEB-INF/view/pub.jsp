@@ -16,7 +16,7 @@
 	<script charset="utf-8" src="<%=request.getContextPath()%>/js/kindeditor/plugins/code/prettify.js"></script><!-- kindeditor -->
 	<script>
 		$(function(){
-			$("#pub").parent().removeClass("active");
+			$("#pub").parent().find("li").removeClass("active");
 			$("#pub").addClass("active");
 		})
 		
@@ -47,7 +47,6 @@
 		//提交
 		function doSubmit(){
 			$.post(BASE + "/content/add.do",$("#f").serialize(),function(data){
-				alert(data.respCode);
 				if(data.respCode == 0){
 					alert("保存成功");
 					window.location.reload(true);

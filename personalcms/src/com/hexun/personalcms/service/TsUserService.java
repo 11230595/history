@@ -14,4 +14,6 @@ public interface TsUserService {
     int updateByPrimaryKeySelective(TsUser record);
 
     int updateByPrimaryKey(TsUser record);
+
+	TsUser login(String userCode, String password);
 }
