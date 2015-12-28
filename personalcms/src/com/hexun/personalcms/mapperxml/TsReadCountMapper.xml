@@ -90,4 +90,14 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  
+  
+  
+  <!-- 根据内容ID查询 -->
+  <select id="findTsReadCountByContentId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ts_read_count
+    where CONTENT_ID = #{id,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -46,6 +46,13 @@ public class TsReadCountServiceImpl implements TsReadCountService {
 	public int updateByPrimaryKey(TsReadCount record) {
 		return tsReadCountMapper.updateByPrimaryKey(record);
 	}
+	/**
+	 * 根据内容ID查询
+	 */
+	@Override
+	public TsReadCount findTsReadCountByContentId() {
+		return tsReadCountMapper.findTsReadCountByContentId();
+	}
 
 
 }

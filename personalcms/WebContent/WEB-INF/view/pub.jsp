@@ -28,6 +28,7 @@
 				uploadJson : BASE + '/upload_json.jsp',
 				fileManagerJson : BASE + '/file_manager_json.jsp',
 				allowFileManager : true,
+				afterBlur: function(){this.sync();},
 				afterCreate : function() {
 					var self = this;
 					K.ctrl(document, 13, function() {

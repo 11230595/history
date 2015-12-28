@@ -56,7 +56,7 @@
   </filter>
   <filter-mapping>
     <filter-name>testFilter</filter-name>
-    <url-pattern>*.do</url-pattern>
+    <url-pattern>*.do</url-pattern><!-- 拦截所有以.do结尾的请求 -->
   </filter-mapping>
   <!-- 测试filter end -->
   

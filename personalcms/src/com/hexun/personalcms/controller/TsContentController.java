@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.Null;
 
 import net.sf.json.JSONObject;
 
@@ -21,7 +22,10 @@ import com.hexun.framework.core.properties.PropertiesUtils;
 import com.hexun.framework.core.utils.IDUtils;
 import com.hexun.framework.core.utils.RespEnum;
 import com.hexun.personalcms.entity.TsContent;
+import com.hexun.personalcms.entity.TsReadCount;
+import com.hexun.personalcms.entity.TsUser;
 import com.hexun.personalcms.service.TsContentService;
+import com.hexun.personalcms.service.TsReadCountService;
 /**
  * 内容
  * @author zhoudong
@@ -33,7 +37,8 @@ public class TsContentController extends DefaultBaseController{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Resource
 	private TsContentService tsContentService;
-	
+	@Resource
+	private TsReadCountService tsReadCountService;
 	/**
 	 * 首页
 	 * 访问路径：localhost:8080/personalcms
@@ -77,5 +82,34 @@ public class TsContentController extends DefaultBaseController{
 		}
 		
 		return resultMap;
+	}
+	
+	/**
+	 * 详情页
+	 * @return
+	 */
+	@RequestMapping("detail")
+	public ModelAndView detail(){
+		TsContent tsContent = tsContentService.selectByPrimaryKey(getRequest().getParameter("id"));
+		saveReadCount(getRequest().getParameter("id"));
+		return getModelAndView("details","content",tsContent);
+	}
+	/**
+	 * 保存阅读次数
+	 * @param id
+	 */
+	private synchronized void saveReadCount(String id) {
+		
+		TsReadCount tsReadCount = tsReadCountService.findTsReadCountByContentId();
+		
+		tsReadCount = new TsReadCount();
+		tsReadCount.setContentId(IDUtils.getId());
+		tsReadCount.setCreateTime(new Date());
+		
+		TsUser user = (TsUser) getSession().getAttribute("tsUser");
+		tsReadCount.setUserId(user == null ? "" : user.getId());
+		tsReadCount.setContentId(id);
+		
+		tsReadCountService.insert(tsReadCount);
 	}
 }
