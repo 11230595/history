@@ -16,7 +16,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 public class PropertiesUtils {
 	/**
 	 * 读取配置文件，程序里面可以使用
-	 * Constants.config.getString("文件中的key");
+	 * PropertiesUtils.getString("文件中的key");
 	 * 来获取配置文件中配置的数据
 	 */
 	public static Configuration config =null;

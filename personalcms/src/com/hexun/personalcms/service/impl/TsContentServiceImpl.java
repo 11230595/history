@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.hexun.framework.core.mybatis.BaseMybatisDao;
 import com.hexun.personalcms.entity.TsContent;
 import com.hexun.personalcms.mapper.TsContentMapper;
 import com.hexun.personalcms.service.TsContentService;

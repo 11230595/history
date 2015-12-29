@@ -16,7 +16,9 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.hexun.framework.core.properties.PropertiesUtils;
+import com.hexun.framework.core.utils.IPUtils;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -44,6 +46,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
 		if(!req.getRequestURL().toString().endsWith("pub.do")){
+			logger.info("来访者外网IP：{}",IPUtils.getIP(req));
 			logger.info("访问URL{},不是pub.do,放行！",req.getRequestURL().toString());
 			chain.doFilter(request, response);
 			return;
