@@ -25,6 +25,7 @@
          </li>
          <li><a href="#">个人中心</a></li>
          <li><a href="javascript:void(0);" onclick="alert('这里是帮助~~~~');">帮助</a></li>
+         <li><a href="<%=request.getContextPath()%>/user/page.do?pageSize=5&pageNo=1">分页</a></li>
        </ul>
        <form class="navbar-form navbar-right">
          <input type="text" class="form-control" placeholder="关键字...">

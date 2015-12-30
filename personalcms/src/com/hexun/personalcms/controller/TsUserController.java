@@ -1,6 +1,7 @@
 package com.hexun.personalcms.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hexun.framework.core.controller.DefaultBaseController;
+import com.hexun.framework.core.page.Page;
 import com.hexun.framework.core.properties.PropertiesUtils;
 import com.hexun.framework.core.utils.IDUtils;
 import com.hexun.framework.core.utils.RespEnum;
+import com.hexun.framework.core.utils.StringUtils;
 import com.hexun.personalcms.entity.TsUser;
 import com.hexun.personalcms.service.TsUserService;
 /**
@@ -92,5 +95,59 @@ public class TsUserController extends DefaultBaseController{
 			resultMap.put("respMsg", "登录成功");
 		}
 		return resultMap;
+	}
+	
+	/**
+	 * 分页查询所有用户，返回json
+	 * 带like条件的访问地址
+	 * http://localhost:8080/personalcms/user/findByPage.do?pageNo=1&pageSize=2&userCode=a
+	 * 不带like条件的访问地址
+	 * http://localhost:8080/personalcms/user/findByPage.do?pageNo=1&pageSize=2
+	 * @return
+	 */
+	@RequestMapping(value="findByPage",method={RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody Map<String, Object> findByPage(){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		int pageNo = Integer.parseInt(getRequest().getParameter("pageNo"));
+		int pageSize = Integer.parseInt(getRequest().getParameter("pageSize"));
+		
+		String userCode = getRequest().getParameter("userCode");
+		
+		if(StringUtils.isNotBlank(userCode)){ //对userCode模糊查询
+			logger.info("用户搜索关键字：{}",userCode);
+			paramMap.put("userCode", userCode);
+		}
+		
+		Page<TsUser> page = tsUserService.findUserByPage("findUserByPage",paramMap,pageNo,pageSize);
+		resultMap.put("result", page);
+		return resultMap;
+	}
+	
+	
+	/**
+	 * 分页查询所有用户，页面展示
+	 * @return
+	 */
+	@RequestMapping(value="page",method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView page(){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		ModelAndView mav = getModelAndView("page");
+		
+		int pageNo = Integer.parseInt(getRequest().getParameter("pageNo"));
+		int pageSize = Integer.parseInt(getRequest().getParameter("pageSize"));
+		
+		String userCode = getRequest().getParameter("userCode");
+		
+		
+		if(StringUtils.isNotBlank(userCode)){ //对userCode模糊查询
+			logger.info("用户搜索关键字：{}",userCode);
+			paramMap.put("userCode", userCode);
+			mav.addObject("keyword", userCode); //用户前台搜索框
+		}
+		
+		Page<TsUser> page = tsUserService.findUserByPage("findUserByPage",paramMap,pageNo,pageSize);
+		mav.addObject("users", page);
+		return mav;
 	}
 }

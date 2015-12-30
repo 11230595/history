@@ -163,4 +163,20 @@
     	or (EMALL = #{userCode,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR})
     </if>
   </select>
+  
+  
+  <select id="findUserByPage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ts_user
+    where 1=1
+    <if test="userCode != null and userCode !=''" >
+    	and USER_CODE like '%${userCode}%'
+    </if>
+    order by create_time desc
+    <!-- 分页 -->
+    <if test="page_sql != null and page_sql !=''"  >
+       ${page_sql}
+    </if>
+  </select>
 </mapper>
