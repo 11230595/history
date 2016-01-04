@@ -47,7 +47,7 @@ public class LoginFilter implements Filter {
 		
 		if(!req.getRequestURL().toString().endsWith("pub.do")){
 			logger.info("来访者外网IP：{}",IPUtils.getIP(req));
-			logger.info("访问URL{},不是pub.do,放行！",req.getRequestURL().toString());
+			logger.info("访问URL：{},不是pub.do,放行！",req.getRequestURL().toString());
 			chain.doFilter(request, response);
 			return;
 		}

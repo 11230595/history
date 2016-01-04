@@ -35,4 +35,7 @@
 
 	<!-- 支持上传文件 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+	<!-- 防止xss，sql攻击，源码位于core，jar包中 -->
+	<bean id="xssFilter" class="com.hexun.framework.core.filter.XssFilter"/>
 </beans>

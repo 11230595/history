@@ -2,3 +2,5 @@
 2、数据库建表：见sql.sql
 3、项目采用spring mvc + mybatis
 4、项目核心封装jar包core-0.0.1-SNAPSHOT.jar
+
+5、数据库链接修改：jdbc.properties

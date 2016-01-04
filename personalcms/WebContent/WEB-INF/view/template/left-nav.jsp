@@ -8,6 +8,7 @@
     <li id="recom"><a href="#">推荐的内容</a></li>
     <li id="i_index"><a href="#">我发布的内容</a></li>
     <li id="i_recom"><a href="#">我推荐的内容</a></li>
+    <li id="upload_photo"><a href="<%=request.getContextPath()%>/photo.do">上传照片</a></li>
   </ul>
 </div>
 <!-- 左侧导航end -->

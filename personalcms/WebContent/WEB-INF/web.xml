@@ -73,6 +73,25 @@
     <session-timeout>120</session-timeout>
   </session-config>
   
+  <!-- xssFilter start -->
+  <filter>
+    <filter-name>xssFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <init-param>
+      <param-name>targetBeanName</param-name>
+      <param-value>xssFilter</param-value>
+    </init-param>
+    <init-param>
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>xssFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <!-- xssFilter end -->
+  
   <!-- spring mvc start -->
   <servlet>
     <servlet-name>springmvc</servlet-name>
